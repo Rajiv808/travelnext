@@ -1,178 +1,170 @@
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Plane, ArrowUpRight, Menu, X } from "lucide-react";
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+const WHATSAPP_NUMBER = "919477110367";
+
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Destinations", href: "#destinations" },
+  { label: "Packages", href: "#packages" },
+  { label: "Our Services", href: "#services" },
+  { label: "About Us", href: "#about" },
+];
+
+export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const links = [
-    { label: "Home", href: "#home" },
-    { label: "Destinations", href: "#destinations" },
-    { label: "Journeys", href: "#packages" },
-    { label: "Experiences", href: "#services" },
-    { label: "Our Story", href: "#about" },
-  ];
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
+  const closeMenu = () => setMenuOpen(false);
 
-  const bookTrip = () => {
+  const openWhatsApp = () => {
     const message = encodeURIComponent(
-      "Hello TravelNext! I would like to plan a trip. Please share your packages."
+      "Hi TravelNext! I'd love to plan my next trip. Please share your travel packages."
     );
+
     window.open(
-      `https://wa.me/919477110367?text=${message}`,
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
       "_blank",
       "noopener,noreferrer"
     );
-    setMenuOpen(false);
   };
 
   return (
-    <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.65, ease: "easeOut" }}
-        className={`fixed inset-x-0 top-0 z-[100] border-b transition-all duration-300 ${
-          scrolled
-            ? "border-white/10 bg-[#071629]/95 py-3 shadow-xl shadow-black/10 backdrop-blur-2xl"
-            : "border-white/15 bg-transparent py-5"
-        }`}
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-emerald-900/10 bg-white/95 shadow-lg backdrop-blur-xl"
+          : "bg-white/80 backdrop-blur-md"
+      }`}
+    >
+      <nav
+        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+        aria-label="Main navigation"
       >
-        <div className="mx-auto flex w-[min(1380px,calc(100%-48px))] items-center justify-between gap-6">
+        <a
+          href="#home"
+          onClick={closeMenu}
+          className="group flex items-center gap-3"
+          aria-label="TravelNext home"
+        >
+          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-emerald-900 text-xl text-amber-300 shadow-md transition duration-300 group-hover:-rotate-6 group-hover:scale-110">
+            ✈
+          </span>
 
-          {/* Brand */}
-          <a
-            href="#home"
-            onClick={() => setMenuOpen(false)}
-            className="group flex shrink-0 items-center gap-3"
-          >
-            <span className="grid h-11 w-11 place-items-center rounded-full border border-cyan-300/50 text-cyan-300 transition duration-300 group-hover:rotate-[-12deg] group-hover:bg-cyan-300 group-hover:text-[#071629]">
-              <Plane size={21} strokeWidth={1.8} />
+          <span className="text-2xl font-extrabold tracking-tight text-emerald-950">
+            TravelNext<span className="text-amber-500">.</span>
+            <span className="mt-0.5 block text-[9px] font-semibold uppercase tracking-[0.28em] text-gray-500">
+              Find your somewhere
             </span>
+          </span>
+        </a>
 
-            <span className="font-['Manrope'] text-[19px] font-extrabold tracking-[1.5px] text-white">
-              TRAVEL<span className="text-cyan-300">NEXT</span>
-              <span className="mt-1 block text-[8px] font-semibold tracking-[2.5px] text-slate-400">
-                EXPLORE BEYOND LIMITS
-              </span>
-            </span>
-          </a>
+        <div className="hidden items-center gap-7 lg:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="group relative py-2 text-sm font-semibold text-gray-600 transition-colors duration-200 hover:text-emerald-900"
+            >
+              {link.label}
+              <span className="absolute bottom-0 left-0 h-0.5 w-0 rounded-full bg-amber-500 transition-all duration-300 group-hover:w-full" />
+            </a>
+          ))}
+        </div>
 
-          {/* Desktop navigation */}
-          <nav className="hidden items-center gap-7 lg:flex">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="group relative py-3 text-[12px] font-semibold text-white/75 transition-colors hover:text-cyan-300"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-0 h-px w-0 bg-cyan-300 transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-          </nav>
-
-          {/* CTA */}
+        <div className="hidden lg:block">
           <button
-            onClick={bookTrip}
-            className="hidden shrink-0 items-center gap-4 border border-cyan-300 bg-cyan-300 py-2 pl-5 pr-2 text-[12px] font-extrabold text-[#071629] transition-all duration-300 hover:border-white hover:bg-white md:flex"
+            type="button"
+            onClick={openWhatsApp}
+            className="group inline-flex items-center gap-2 rounded-full bg-emerald-900 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/10 transition duration-300 hover:-translate-y-1 hover:bg-emerald-800 hover:shadow-xl"
           >
-            Plan your journey
-            <span className="grid h-8 w-8 place-items-center bg-[#071629] text-cyan-300 transition-colors group-hover:bg-cyan-300">
-              <ArrowUpRight size={17} />
+            Plan My Trip
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              ↗
             </span>
-          </button>
-
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            className="grid h-11 w-11 place-items-center border border-cyan-300/40 bg-cyan-300/10 text-cyan-300 transition hover:bg-cyan-300 hover:text-[#071629] lg:hidden"
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </motion.header>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[90] overflow-y-auto bg-[#071629] px-6 pb-10 pt-28 lg:hidden"
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="grid h-11 w-11 place-items-center rounded-xl border border-gray-200 bg-white text-emerald-950 transition hover:border-emerald-800 hover:bg-emerald-50 lg:hidden"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+        >
+          <span className="relative h-5 w-5">
+            <span
+              className={`absolute left-0 top-1 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ${
+                menuOpen ? "top-2.5 rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-2.5 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-4 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ${
+                menuOpen ? "top-2.5 -rotate-45" : ""
+              }`}
+            />
+          </span>
+        </button>
+      </nav>
+
+      <div
+        id="mobile-navigation"
+        className={`overflow-hidden bg-white transition-all duration-300 ease-in-out lg:hidden ${
+          menuOpen
+            ? "max-h-[480px] border-t border-gray-100 opacity-100"
+            : "max-h-0 opacity-0"
+        }`}
+        aria-hidden={!menuOpen}
+      >
+        <div className="mx-auto max-w-7xl space-y-1 px-5 py-4 sm:px-6">
+          {navLinks.map((link, index) => (
+            <a
+              key={link.label}
+              href={link.href}
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={closeMenu}
+              style={{ transitionDelay: `${index * 40}ms` }}
+              className={`flex items-center justify-between rounded-xl px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-emerald-50 hover:text-emerald-900 ${
+                menuOpen
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-3 opacity-0"
+              }`}
+            >
+              {link.label}
+              <span className="text-amber-500">↗</span>
+            </a>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => {
+              closeMenu();
+              openWhatsApp();
+            }}
+            tabIndex={menuOpen ? 0 : -1}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-900 px-5 py-4 font-bold text-white transition hover:bg-emerald-800"
           >
-            <div className="mx-auto max-w-xl">
-
-              <div className="mb-7 flex justify-between border-b border-white/15 pb-5 text-[10px] font-bold tracking-[2px] text-cyan-300">
-                <span>EXPLORE TRAVELNEXT</span>
-                <span>KOLKATA · INDIA</span>
-              </div>
-
-              <nav>
-                {links.map((link, index) => (
-                  <motion.a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.06 }}
-                    className="flex min-h-[76px] items-center justify-between border-b border-white/10 py-4 transition-colors hover:text-cyan-300"
-                  >
-                    <span className="flex items-center gap-5">
-                      <span className="text-[11px] text-cyan-300">
-                        0{index + 1}
-                      </span>
-                      <span className="font-['Manrope'] text-2xl font-bold tracking-tight text-white">
-                        {link.label}
-                      </span>
-                    </span>
-                    <ArrowUpRight size={21} className="text-cyan-300" />
-                  </motion.a>
-                ))}
-              </nav>
-
-              <div className="mt-9">
-                <p className="mb-4 text-xs text-slate-400">
-                  HAVE A DESTINATION IN MIND?
-                </p>
-                <button
-                  onClick={bookTrip}
-                  className="flex w-full items-center justify-between bg-cyan-300 px-6 py-5 text-sm font-extrabold text-[#071629] transition hover:bg-white"
-                >
-                  Let's plan a trip
-                  <ArrowUpRight size={20} />
-                </button>
-              </div>
-
-              <p className="mt-10 text-center text-[10px] tracking-[3px] text-slate-500">
-                TRAVELNEXT · EXPLORE BEYOND LIMITS
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            <span>✈</span>
+            Plan My Trip on WhatsApp
+            <span>↗</span>
+          </button>
+        </div>
+      </div>
+    </header>
   );
-};
-
-export default Navbar;
+}

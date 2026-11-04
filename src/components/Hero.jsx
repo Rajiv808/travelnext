@@ -1,194 +1,261 @@
 
-import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 
-export default function Hero() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+const WHATSAPP_NUMBER = "919477110367";
 
-  const navLinks = [
-    { name: "HOME", href: "#home" },
-    { name: "DESTINATIONS", href: "#destinations" },
-    { name: "JOURNEYS", href: "#packages" },
-    { name: "OUR STORY", href: "#about" },
-    { name: "CONTACT", href: "#contact" },
-  ];
+const destinations = [
+  "Ayodhya",
+  "Bhutan",
+  "Darjeeling",
+  "Goa",
+  "Kashmir",
+  "Kedarnath",
+  "Kerala",
+  "Sundarban",
+  "Taj Mahal, Agra",
+  "Varanasi",
+];
+
+export default function Hero() {
+  const [destination, setDestination] = useState("");
+  const [travelDate, setTravelDate] = useState("");
+  const [travellers, setTravellers] = useState("2 travellers");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const message = `Hi TravelNext! I'd like to plan a trip.
+Destination: ${destination || "Not decided yet"}
+Travel date: ${travelDate || "Flexible"}
+Travellers: ${travellers}
+Please share your packages and pricing.`;
+
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#071629] text-white"
+      className="relative overflow-hidden bg-[#fbf8f1] pb-16 pt-12 sm:pt-16 lg:pb-20"
     >
-      {/* Background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/kashmir.jpg')" }}
-      />
-
-      {/* Background overlays */}
-      <div className="absolute inset-0 bg-black/25" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/85 via-[#061426]/40 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#061426] via-transparent to-black/30" />
-
-      {/* FIXED NAVBAR */}
-      <header className="fixed left-0 right-0 top-0 z-[100] border-b border-white/10 bg-[#071629]/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-[82px] w-full max-w-[1500px] items-center justify-between px-6 sm:px-10 lg:px-16">
-
-          {/* Logo */}
-          <a href="#home" className="group flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center border border-cyan-300/70 text-cyan-300 transition group-hover:bg-cyan-300 group-hover:text-[#071629]">
-              <span className="text-lg font-black">T</span>
-            </span>
-
-            <span>
-              <span className="block text-lg font-extrabold tracking-[3px]">
-                TRAVELNEXT
-              </span>
-              <span className="block text-[8px] tracking-[3px] text-white/60">
-                EXPLORE BEYOND LIMITS
-              </span>
-            </span>
-          </a>
-
-          {/* Desktop navigation */}
-          <nav className="hidden items-center gap-8 text-[10px] font-semibold tracking-[2px] text-white/80 md:flex">
-            {navLinks.map((link, index) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`transition-colors hover:text-cyan-300 ${
-                  index === 0 ? "text-cyan-300" : ""
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Desktop CTA */}
-          <a
-            href="https://wa.me/919477110367"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden items-center gap-3 border border-white/50 px-5 py-3 text-[10px] font-bold tracking-[1.5px] transition hover:border-cyan-300 hover:bg-cyan-300 hover:text-[#071629] sm:flex"
-          >
-            PLAN YOUR TRIP
-            <ArrowUpRight size={15} />
-          </a>
-
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle navigation"
-            aria-expanded={mobileOpen}
-            className="grid h-10 w-10 place-items-center border border-white/30 md:hidden"
-          >
-            {mobileOpen ? <X size={21} /> : <Menu size={21} />}
-          </button>
-        </div>
-
-        {/* Mobile navigation */}
-        {mobileOpen && (
-          <div className="border-t border-white/10 bg-[#071629] px-6 py-6 md:hidden">
-            <nav className="flex flex-col">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="border-b border-white/10 py-4 text-xs font-semibold tracking-[2px] text-white/80 transition hover:text-cyan-300"
-                >
-                  {link.name}
-                </a>
-              ))}
-
-              <a
-                href="https://wa.me/919477110367"
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => setMobileOpen(false)}
-                className="mt-5 flex items-center justify-between bg-cyan-300 px-5 py-4 text-xs font-bold tracking-wider text-[#071629]"
-              >
-                PLAN YOUR TRIP
-                <ArrowUpRight size={18} />
-              </a>
-            </nav>
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-10">
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-3 rounded-full border border-emerald-900/10 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">
+            <span className="h-2 w-2 rounded-full bg-amber-500" />
+            Your next adventure starts here
           </div>
-        )}
-      </header>
 
-      {/* HERO CONTENT */}
-      <div className="relative z-10 flex min-h-screen flex-col pt-[82px]">
+          <h1 className="mt-7 max-w-2xl font-serif text-5xl font-medium leading-[1.08] tracking-tight text-emerald-950 sm:text-6xl lg:text-7xl">
+            The world is wide.
+            <span className="mt-2 block italic text-amber-600">
+              Go feel it.
+            </span>
+          </h1>
 
-        <div className="mx-auto flex w-full max-w-[1500px] flex-1 items-center px-6 pb-20 pt-14 sm:px-10 lg:px-16">
+          <p className="mt-6 max-w-xl text-base leading-8 text-gray-600 sm:text-lg">
+            From Himalayan sunrises to peaceful days by the sea, we turn your
+            travel dreams into unforgettable journeys. Discover beautiful
+            destinations with TravelNext.
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="max-w-[1000px]"
-          >
-            <div className="mb-9 flex items-center gap-4">
-              <span className="h-px w-12 bg-cyan-300" />
-              <span className="text-[10px] font-semibold tracking-[4px] text-cyan-200 sm:text-xs">
-                YOUR JOURNEY BEGINS HERE
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="#packages"
+              className="group inline-flex items-center gap-3 rounded-full bg-emerald-900 px-7 py-4 text-sm font-bold text-white shadow-lg shadow-emerald-950/10 transition duration-300 hover:-translate-y-1 hover:bg-emerald-800"
+            >
+              Explore Our Trips
+              <span className="transition-transform group-hover:translate-x-1">
+                ↗
               </span>
-            </div>
-
-            <h1 className="font-['Manrope'] text-[clamp(58px,10vw,138px)] font-extrabold uppercase leading-[0.88] tracking-[-0.075em]">
-              THE WORLD
-              <br />
-              IS YOURS TO
-              <br />
-              <span className="text-cyan-300">DISCOVER.</span>
-            </h1>
-
-            <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-              <p className="max-w-[400px] text-sm leading-8 text-white/75 sm:text-base">
-                Go beyond the familiar. Discover extraordinary places,
-                experience different cultures and create memories that
-                stay with you forever.
-              </p>
-
-              <a
-                href="#destinations"
-                className="group flex w-fit shrink-0 items-center gap-5 border-b border-cyan-300 pb-3 text-xs font-bold tracking-[2px] transition hover:text-cyan-300"
-              >
-                EXPLORE DESTINATIONS
-
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-cyan-300 text-[#071629] transition group-hover:translate-x-2">
-                  <ArrowUpRight size={20} />
-                </span>
-              </a>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom strip */}
-        <div className="mx-auto w-full max-w-[1500px] px-6 pb-7 sm:px-10 lg:px-16">
-          <div className="flex flex-wrap items-center justify-between gap-5 border-t border-white/25 pt-6">
-
-            <div className="flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-cyan-300" />
-              <span className="text-[9px] font-semibold tracking-[2px] text-white/65">
-                BASED IN KOLKATA, INDIA
-              </span>
-            </div>
+            </a>
 
             <a
               href="#destinations"
-              className="flex items-center gap-3 text-[9px] font-semibold tracking-[2px] text-white/65 transition hover:text-cyan-300"
+              className="inline-flex items-center gap-3 rounded-full border border-emerald-900/15 bg-white px-7 py-4 text-sm font-bold text-emerald-950 transition duration-300 hover:-translate-y-1 hover:border-amber-500"
             >
-              SCROLL TO EXPLORE
-              <ArrowDown size={15} />
+              Discover Destinations
+              <span>↓</span>
             </a>
+          </div>
 
-            <span className="text-[9px] tracking-[2px] text-white/50">
-              TRAVELNEXT © 2026
-            </span>
+          <div className="mt-10 flex items-center gap-4">
+            <div className="flex -space-x-3">
+              {["✦", "✿", "❋", "☺"].map((symbol, index) => (
+                <span
+                  key={index}
+                  className="grid h-10 w-10 place-items-center rounded-full border-[3px] border-[#fbf8f1] bg-emerald-100 text-sm text-emerald-900"
+                  style={{
+                    backgroundColor: [
+                      "#e9c9aa",
+                      "#b6d0c1",
+                      "#edb6a2",
+                      "#d8d5a8",
+                    ][index],
+                  }}
+                >
+                  {symbol}
+                </span>
+              ))}
+            </div>
+
+            <div>
+              <div className="text-sm tracking-[0.2em] text-amber-600">
+                ★★★★★
+              </div>
+              <p className="mt-1 text-xs text-gray-600">
+                Thoughtful trips, memorable experiences
+              </p>
+            </div>
           </div>
         </div>
+
+        <div className="relative mx-auto h-[440px] w-full max-w-xl sm:h-[540px]">
+          <div className="absolute inset-x-8 inset-y-3 overflow-hidden rounded-t-[48%] rounded-b-3xl bg-emerald-100 shadow-2xl shadow-emerald-950/10 sm:inset-x-12">
+            <img
+              src="/images/kashmir.jpg"
+              alt="Beautiful mountain scenery in Kashmir"
+              className="h-full w-full object-cover transition duration-700 hover:scale-105"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/70 via-transparent to-transparent" />
+
+            <div className="absolute bottom-8 left-7 text-white sm:bottom-10 sm:left-10">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+                Somewhere worth discovering
+              </p>
+              <h2 className="mt-2 font-serif text-3xl sm:text-4xl">
+                Kashmir, India
+              </h2>
+            </div>
+          </div>
+
+          <div className="absolute left-0 top-12 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl shadow-emerald-950/10 sm:left-1">
+            <span className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-100 text-xl">
+              ✈
+            </span>
+            <div>
+              <p className="text-sm font-bold text-emerald-950">
+                Your kind of adventure
+              </p>
+              <p className="mt-1 text-xs text-gray-500">
+                Personalised just for you
+              </p>
+            </div>
+          </div>
+
+          <div className="absolute bottom-16 right-0 flex items-center gap-3 rounded-2xl border border-white/80 bg-white/95 p-4 shadow-xl shadow-emerald-950/10 sm:bottom-20 sm:right-1">
+            <div className="flex -space-x-2">
+              {["bhutan.jpg", "kerala.jpg", "goa.jpg"].map((image) => (
+                <img
+                  key={image}
+                  src={`/images/${image}`}
+                  alt=""
+                  className="h-10 w-9 rounded-lg border-2 border-white object-cover"
+                />
+              ))}
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-950">
+                Beautiful escapes
+              </p>
+              <p className="mt-1 text-xs text-gray-500">
+                Find your somewhere
+              </p>
+            </div>
+          </div>
+
+          <div className="absolute right-2 top-5 text-4xl text-amber-500 sm:right-5 sm:top-8">
+            ✳
+          </div>
+
+          <div className="absolute bottom-28 left-0 grid h-20 w-20 -rotate-12 place-items-center rounded-full bg-amber-400 text-center text-[10px] font-extrabold leading-5 text-emerald-950 shadow-lg sm:bottom-32 sm:left-1 sm:h-24 sm:w-24">
+            GO FAR.
+            <br />
+            FEEL MORE.
+            <br />
+            ✦ TRAVELNEXT
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-10 max-w-7xl px-5 sm:px-8 lg:px-10">
+        <form
+          onSubmit={handleSubmit}
+          className="grid gap-3 rounded-3xl border border-gray-100 bg-white p-4 shadow-xl shadow-emerald-950/5 sm:p-6 lg:grid-cols-[1.2fr_1fr_1fr_auto] lg:items-end"
+        >
+          <div className="px-2 py-2">
+            <label
+              htmlFor="destination"
+              className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-gray-500"
+            >
+              Where to?
+            </label>
+            <select
+              id="destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-emerald-950 outline-none transition focus:border-emerald-700"
+            >
+              <option value="">Choose a destination</option>
+              {destinations.map((place) => (
+                <option key={place} value={place}>
+                  {place}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="px-2 py-2">
+            <label
+              htmlFor="travelDate"
+              className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-gray-500"
+            >
+              When are you going?
+            </label>
+            <input
+              id="travelDate"
+              type="date"
+              min={new Date().toLocaleDateString("en-CA")}
+              value={travelDate}
+              onChange={(e) => setTravelDate(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-emerald-950 outline-none transition focus:border-emerald-700"
+            />
+          </div>
+
+          <div className="px-2 py-2">
+            <label
+              htmlFor="travellers"
+              className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-gray-500"
+            >
+              Who's travelling?
+            </label>
+            <select
+              id="travellers"
+              value={travellers}
+              onChange={(e) => setTravellers(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-emerald-950 outline-none transition focus:border-emerald-700"
+            >
+              <option>Solo traveller</option>
+              <option>2 travellers</option>
+              <option>3–4 travellers</option>
+              <option>5–8 travellers</option>
+              <option>9+ travellers</option>
+              <option>Family with children</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            className="flex items-center justify-center gap-3 rounded-full bg-amber-400 px-7 py-4 text-sm font-extrabold text-emerald-950 transition duration-300 hover:-translate-y-1 hover:bg-amber-300"
+          >
+            Find My Trip
+            <span>↗</span>
+          </button>
+        </form>
       </div>
     </section>
   );

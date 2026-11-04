@@ -1,347 +1,189 @@
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  MapPin,
-  Phone,
-  MessageCircle,
-  Calendar,
-  Users,
-  Compass,
-} from "lucide-react";
+import React from "react";
+import { MapPin, Phone, MessageCircle, ArrowUpRight, Sparkles } from "lucide-react";
 
-const Contact = () => {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    destination: "",
-    date: "",
-    travellers: "2 Travellers",
-    preferences: "",
-  });
+const WHATSAPP_NUMBER = "919477110367";
+const PHONE_NUMBER = "+919477110367";
 
-  const handleChange = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const whatsappMessage = `Hello TravelNext!
-
-I would like to enquire about a trip.
-
-Name: ${form.name}
-Phone: ${form.phone}
-Destination: ${form.destination}
-Travel Date: ${form.date || "Flexible"}
-Travellers: ${form.travellers}
-Travel Preferences: ${form.preferences || "Not specified"}
-
-Please share the available travel packages and details.`;
-
-    window.open(
-      `https://wa.me/919477110367?text=${encodeURIComponent(whatsappMessage)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-
-  const inputClass =
-    "w-full rounded-xl border border-white/10 bg-[#061322] px-5 py-4 text-base text-white placeholder:text-slate-400 outline-none transition duration-300 focus:border-cyan-400 focus:bg-[#091a2e] focus:ring-2 focus:ring-cyan-400/15 [color-scheme:dark]";
-
-  const labelClass =
-    "mb-2 block text-xs font-semibold uppercase tracking-wider text-slate-300";
+export default function Contact() {
+  const message = encodeURIComponent(
+    "Hi TravelNext! I'd like to plan a trip."
+  );
 
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#071629] px-5 py-24 text-white sm:px-8 lg:px-16 lg:py-28"
+      className="relative overflow-hidden bg-[#f3f6ef] px-5 py-20 sm:px-8 lg:py-28"
     >
-      <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-cyan-500/5 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full border border-[#1d6745]/10" />
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-80 w-80 rounded-full border border-[#1d6745]/10" />
 
-      <div className="relative mx-auto max-w-[1500px]">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col justify-between gap-5 md:mb-12 md:flex-row md:items-end">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d5e4d6] bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#23764d]">
+              <Sparkles size={14} />
+              Let's plan your journey
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="mb-4 flex items-center gap-3 text-cyan-400">
-            <Compass size={18} />
-            <span className="text-xs font-semibold uppercase tracking-[0.25em]">
-              Get In Touch
-            </span>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
-            <h2 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-7xl">
-              Let's plan your
-              <span className="block text-cyan-400">
-                next journey.
-              </span>
+            <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-[#183d2d] sm:text-5xl lg:text-6xl">
+              Every great trip
+              <br />
+              starts with <span className="text-[#2c8055]">hello.</span>
             </h2>
-
-            <p className="max-w-xl text-base leading-7 text-slate-400 lg:justify-self-end">
-              Have a destination in mind? Share your travel plans with us.
-              We'll help you explore the right journey for your next holiday.
-            </p>
           </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative mb-10 h-[260px] overflow-hidden rounded-3xl sm:h-[350px] lg:h-[390px]"
-        >
-          <img
-            src="/images/goa.jpg"
-            alt="Beautiful Goa beach destination"
-            className="h-full w-full object-cover transition duration-700 hover:scale-105"
-          />
+          <p className="max-w-sm text-sm leading-7 text-[#68796d] sm:text-base">
+            Have a destination in mind? Tell us what you're dreaming of.
+            We'll help you turn your next getaway into a beautiful memory.
+          </p>
+        </div>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-[#071629]/90 via-[#071629]/45 to-transparent" />
+        <div className="grid items-stretch gap-6 lg:grid-cols-2">
+          <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#103f2d] via-[#176442] to-[#287b50] p-7 text-white shadow-xl shadow-[#173e2b]/10 sm:p-10">
+            <div className="pointer-events-none absolute -right-10 -top-14 text-[190px] leading-none text-white/[0.045]">
+              ✳
+            </div>
 
-          <div className="absolute inset-0 flex flex-col justify-center px-7 sm:px-14">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-cyan-300">
-              Discover Goa
-            </p>
+            <div className="relative">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#d6bd83]">
+                TravelNext · Your travel partner
+              </p>
 
-            <h3 className="max-w-2xl text-3xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-              Sunsets, beaches
-              <span className="block text-cyan-300">
-                and unforgettable journeys.
-              </span>
-            </h3>
-
-            <p className="mt-5 text-sm text-white/80 sm:text-base">
-              Your next adventure is waiting.
-            </p>
-          </div>
-        </motion.div>
-
-        <div className="grid items-stretch gap-8 lg:grid-cols-[1.8fr_1fr] lg:gap-9">
-
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="h-fit rounded-3xl border border-white/10 bg-[#0c2037] p-6 shadow-2xl sm:p-8 lg:p-9"
-          >
-            <div className="mb-7">
-              <h3 className="text-3xl font-semibold">
-                Send us an enquiry
+              <h3 className="mb-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Let's make it happen.
               </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                Tell us a little about your trip. We'll take it from there.
+
+              <p className="mb-8 max-w-md text-sm leading-7 text-white/75">
+                From the first idea to the final itinerary, we're here to
+                help you plan a trip that feels right for you.
               </p>
+
+              <div className="space-y-1">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Kolkata%2C%20West%20Bengal%2C%20India"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl border-b border-white/15 px-1 py-5 transition hover:bg-white/[0.05]"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#e6c984]">
+                    <MapPin size={21} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-white/55">
+                      Find us
+                    </span>
+                    <span className="block text-sm font-medium sm:text-base">
+                      Kolkata, West Bengal, India
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    size={18}
+                    className="shrink-0 text-white/50 transition group-hover:text-[#e6c984]"
+                  />
+                </a>
+
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  className="group flex items-center gap-4 rounded-2xl border-b border-white/15 px-1 py-5 transition hover:bg-white/[0.05]"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#e6c984]">
+                    <Phone size={20} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-white/55">
+                      Give us a call
+                    </span>
+                    <span className="block text-sm font-medium sm:text-base">
+                      +91 94771 10367
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    size={18}
+                    className="shrink-0 text-white/50 transition group-hover:text-[#e6c984]"
+                  />
+                </a>
+
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl px-1 py-5 transition hover:bg-white/[0.05]"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-[#e6c984]">
+                    <MessageCircle size={21} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="mb-1 block text-[10px] uppercase tracking-[0.18em] text-white/55">
+                      Quickest way to reach us
+                    </span>
+                    <span className="block text-sm font-medium sm:text-base">
+                      Chat with us on WhatsApp
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    size={18}
+                    className="shrink-0 text-white/50 transition group-hover:text-[#e6c984]"
+                  />
+                </a>
+              </div>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#e8c77e] px-6 py-3 text-sm font-semibold text-[#183d2d] transition hover:bg-[#f3d99b]"
+                >
+                  Plan my trip
+                  <ArrowUpRight size={17} />
+                </a>
+
+                <a
+                  href={`tel:${PHONE_NUMBER}`}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  <Phone size={16} />
+                  Call us
+                </a>
+              </div>
             </div>
+          </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className={labelClass}>
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Enter your name"
-                    autoComplete="name"
-                    required
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="Enter mobile number"
-                    autoComplete="tel"
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-
+          <div className="flex min-w-0 flex-col gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-1">
               <div>
-                <label className={labelClass}>
-                  Preferred Destination *
-                </label>
-                <input
-                  type="text"
-                  name="destination"
-                  value={form.destination}
-                  onChange={handleChange}
-                  placeholder="Where would you like to travel?"
-                  required
-                  className={inputClass}
-                />
-              </div>
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className={labelClass}>
-                    <span className="inline-flex items-center gap-2">
-                      <Calendar size={14} className="text-cyan-400" />
-                      Travel Date
-                    </span>
-                  </label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={form.date}
-                    onChange={handleChange}
-                    min={new Date().toLocaleDateString("en-CA")}
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    <span className="inline-flex items-center gap-2">
-                      <Users size={14} className="text-cyan-400" />
-                      Number of Travellers
-                    </span>
-                  </label>
-                  <select
-                    name="travellers"
-                    value={form.travellers}
-                    onChange={handleChange}
-                    className={`${inputClass} cursor-pointer`}
-                  >
-                    <option>1 Traveller</option>
-                    <option>2 Travellers</option>
-                    <option>3 Travellers</option>
-                    <option>4 Travellers</option>
-                    <option>5-6 Travellers</option>
-                    <option>Family / Group (6+)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className={labelClass}>
-                  Tell us about your preferences
-                </label>
-                <textarea
-                  name="preferences"
-                  value={form.preferences}
-                  onChange={handleChange}
-                  rows={2}
-                  placeholder="Budget, hotel preference, sightseeing or special requests..."
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="group flex w-full items-center justify-center gap-3 rounded-xl bg-[#25D366] px-6 py-4 text-sm font-bold text-[#052b18] transition duration-300 hover:bg-[#20bd5a] active:scale-[0.99]"
-              >
-                <MessageCircle size={19} />
-                Send Enquiry on WhatsApp
-                <ArrowUpRight
-                  size={19}
-                  className="transition group-hover:-translate-y-1 group-hover:translate-x-1"
-                />
-              </button>
-
-              <p className="text-center text-xs text-slate-500">
-                Your enquiry will open directly in WhatsApp.
-              </p>
-            </form>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex min-h-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0c2037]"
-          >
-            <div className="flex items-center justify-between p-6">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">
-                  Find Us
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#728477]">
+                  Our home base
                 </p>
-                <h3 className="mt-2 text-2xl font-semibold">
-                  Kolkata, India
+                <h3 className="mt-1 text-2xl font-semibold tracking-tight text-[#183d2d]">
+                  Rooted in Kolkata.
                 </h3>
-                <p className="mt-1 text-sm text-slate-400">
-                  West Bengal
-                </p>
               </div>
 
-              <MapPin size={25} className="text-cyan-400" />
+              <span className="rounded-full border border-[#dce7d9] bg-white px-4 py-2 text-xs font-medium text-[#54715e]">
+                West Bengal, India
+              </span>
             </div>
 
-            <div className="min-h-[350px] flex-1 lg:min-h-0">
+            <div className="relative min-h-[320px] flex-1 overflow-hidden rounded-[26px] border-4 border-white bg-[#e4ebdf] shadow-lg shadow-[#173e2b]/10 sm:min-h-[400px]">
               <iframe
-                title="Google Maps - Kolkata West Bengal"
+                title="TravelNext location in Kolkata"
                 src="https://maps.google.com/maps?q=Kolkata%2C%20West%20Bengal%2C%20India&t=&z=12&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: "350px" }}
+                className="absolute inset-0 h-full w-full"
                 loading="lazy"
-                allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
             </div>
 
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Kolkata%2C+West+Bengal%2C+India"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-between border-t border-white/10 px-6 py-4 text-sm font-semibold text-cyan-400 transition hover:bg-white/[0.03]"
-            >
-              Open in Google Maps
-              <ArrowUpRight size={19} />
-            </a>
-          </motion.div>
+            <div className="flex items-center gap-2 px-1 text-xs leading-6 text-[#68796d] sm:text-sm">
+              <Sparkles size={16} className="shrink-0 text-[#287b50]" />
+              Wherever you're headed, let's plan it together.
+            </div>
+          </div>
         </div>
-
-        <a
-          href="https://wa.me/919477110367"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-6 flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0c2037] p-5 transition hover:border-cyan-400/30 lg:max-w-[calc(64.3%-12px)]"
-        >
-          <div className="rounded-xl bg-white/[0.05] p-3 text-cyan-400">
-            <Phone size={22} />
-          </div>
-
-          <div>
-            <p className="text-xs uppercase tracking-wider text-slate-500">
-              WhatsApp Contact
-            </p>
-            <p className="mt-1 text-lg font-semibold">
-              +91 94771 10367
-            </p>
-          </div>
-
-          <ArrowUpRight className="ml-auto text-cyan-400" size={20} />
-        </a>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}

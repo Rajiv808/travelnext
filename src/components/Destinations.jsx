@@ -1,214 +1,150 @@
 
-import { motion } from "framer-motion";
-import { ArrowUpRight, MoveUpRight, Compass } from "lucide-react";
-
 const destinations = [
   {
     name: "Kashmir",
-    location: "INDIA · NORTH",
-    description: "Where mountains touch the sky.",
+    subtitle: "Mountains & magic",
     image: "/images/kashmir.jpg",
-    number: "01",
-    featured: true,
+    description: "Discover alpine lakes and breathtaking mountain views.",
   },
   {
     name: "Bhutan",
-    location: "HIMALAYAS",
-    description: "Discover the kingdom of happiness.",
+    subtitle: "Find your calm",
     image: "/images/bhutan.jpg",
-    number: "02",
-  },
-  {
-    name: "Sundarban",
-    location: "WEST BENGAL",
-    description: "An adventure into the wild.",
-    image: "/images/sundarban.jpg",
-    number: "03",
+    description: "Experience peaceful valleys and Himalayan culture.",
   },
   {
     name: "Kerala",
-    location: "SOUTH INDIA",
-    description: "Slow down. Find your paradise.",
+    subtitle: "Slow down, soak in",
     image: "/images/kerala.jpg",
-    number: "04",
-  },
-  {
-    name: "Darjeeling",
-    location: "WEST BENGAL",
-    description: "A beautiful escape in the hills.",
-    image: "/images/darjeeling.jpg",
-    number: "05",
+    description: "Explore lush greenery and tranquil backwaters.",
   },
   {
     name: "Goa",
-    location: "INDIA · WEST",
-    description: "Let the coastline set you free.",
+    subtitle: "Sunshine state of mind",
     image: "/images/goa.jpg",
-    number: "06",
+    description: "Enjoy golden beaches and colourful coastal towns.",
+  },
+  {
+    name: "Darjeeling",
+    subtitle: "Tea, mist & mountains",
+    image: "/images/darjeeling.jpg",
+    description: "Wake up to tea gardens and spectacular hill views.",
+  },
+  {
+    name: "Ayodhya",
+    subtitle: "Culture & devotion",
+    image: "/images/ayodhya.jpg",
+    description: "Discover sacred sites and timeless heritage.",
+  },
+  {
+    name: "Kedarnath",
+    subtitle: "A journey within",
+    image: "/images/kedarnath.jpg",
+    description: "Experience a memorable Himalayan pilgrimage.",
+  },
+  {
+    name: "Sundarban",
+    subtitle: "Into the wild",
+    image: "/images/sundarban.jpg",
+    description: "Explore mangrove waterways and extraordinary wildlife.",
+  },
+  {
+    name: "Taj Mahal",
+    subtitle: "Timeless wonder",
+    image: "/images/taj-mahal.jpg",
+    description: "Admire one of India's most iconic monuments.",
+  },
+  {
+    name: "Varanasi",
+    subtitle: "Feel the soul of India",
+    image: "/images/varanasi.jpg",
+    description: "Experience riverside rituals and historic streets.",
   },
 ];
 
-function DestinationCard({ place, index }) {
-  return (
-    <motion.a
-      href={`https://wa.me/919477110367?text=${encodeURIComponent(
-        `Hello TravelNext! I am interested in visiting ${place.name}. Please share the travel packages and details.`
-      )}`}
-      target="_blank"
-      rel="noreferrer"
-      initial={{ opacity: 0, y: 35 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.7, delay: index * 0.08 }}
-      whileHover={{ y: -7 }}
-      className={`group relative isolate block overflow-hidden rounded-[22px] border border-white/10 bg-[#102943] shadow-[0_20px_60px_rgba(0,0,0,0.22)] ${
-        place.featured
-          ? "h-[480px] sm:h-[550px] lg:col-span-7 lg:row-span-2 lg:h-full"
-          : "h-[300px] sm:h-[350px] lg:col-span-5 lg:h-full"
-      } ${
-        index >= 3
-          ? "lg:col-span-4 lg:h-[250px]"
-          : ""
-      }`}
-    >
-      <img
-        src={place.image}
-        alt={`${place.name} destination`}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-t from-[#061426] via-[#061426]/15 to-black/10 transition-opacity duration-500 group-hover:from-[#061426]/95" />
-
-      <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/20 bg-[#071629]/45 px-4 py-2 backdrop-blur-md">
-        <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
-        <span className="text-[9px] font-bold tracking-[1.8px] text-white">
-          {place.location}
-        </span>
-      </div>
-
-      <span className="absolute right-5 top-5 font-['Manrope'] text-xs font-semibold tracking-[2px] text-white/80">
-        {place.number}
-      </span>
-
-      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-        {place.featured && (
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-[9px] font-bold tracking-[2px] text-cyan-200 backdrop-blur-md">
-            <Compass size={13} />
-            FEATURED DESTINATION
-          </span>
-        )}
-
-        <h3
-          className={`font-['Manrope'] font-extrabold tracking-[-0.05em] text-white ${
-            place.featured
-              ? "text-5xl sm:text-7xl"
-              : "text-4xl sm:text-5xl"
-          }`}
-        >
-          {place.name}
-        </h3>
-
-        <div className="mt-3 flex items-end justify-between gap-3">
-          <p className="max-w-[260px] text-xs leading-6 text-white/70 sm:text-sm">
-            {place.description}
-          </p>
-
-          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/40 bg-white/5 text-white backdrop-blur-md transition-all duration-300 group-hover:border-cyan-300 group-hover:bg-cyan-300 group-hover:text-[#071629]">
-            <ArrowUpRight size={20} />
-          </span>
-        </div>
-
-        <div className="mt-5 h-px w-full origin-left scale-x-0 bg-cyan-300 transition-transform duration-700 group-hover:scale-x-100" />
-      </div>
-    </motion.a>
-  );
-}
-
 export default function Destinations() {
+  const exploreDestination = (name) => {
+    const message = `Hi TravelNext! I'm interested in visiting ${name}. Please share available tour packages, itineraries and prices.`;
+
+    window.open(
+      `https://wa.me/919477110367?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
   return (
     <section
       id="destinations"
-      className="relative overflow-hidden bg-[#071629] px-5 py-24 text-white sm:px-10 lg:px-16 lg:py-32"
+      className="bg-[#f2f2e9] py-20 sm:py-24"
     >
-      <div className="pointer-events-none absolute -left-64 top-40 h-[500px] w-[500px] rounded-full bg-cyan-400/[0.06] blur-[130px]" />
-
-      <div className="pointer-events-none absolute -right-64 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/[0.06] blur-[130px]" />
-
-      <div className="relative z-10 mx-auto max-w-[1400px]">
-
-        <div className="mb-16 grid gap-8 lg:grid-cols-[1fr_380px] lg:items-end">
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="mb-7 flex items-center gap-3">
-              <span className="h-px w-10 bg-cyan-300" />
-              <span className="text-[10px] font-bold tracking-[4px] text-cyan-300">
-                THE WORLD AWAITS
-              </span>
-            </div>
-
-            <h2 className="font-['Manrope'] text-5xl font-extrabold leading-[1.05] tracking-[-0.065em] sm:text-6xl lg:text-[82px]">
-              Places worth
-              <br />
-              <span className="text-cyan-300">getting lost in.</span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 25 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:pb-2"
-          >
-            <p className="max-w-[390px] text-sm leading-8 text-slate-400">
-              From the quiet beauty of the mountains to the untamed wilderness,
-              explore places that turn an ordinary trip into an extraordinary
-              experience.
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-800">
+              A little inspiration goes a long way
             </p>
+            <h2 className="mt-4 font-serif text-4xl leading-tight tracking-tight text-emerald-950 sm:text-5xl">
+              Places that stay
+              <br />
+              with you.
+            </h2>
+          </div>
 
-            <div className="mt-6 flex items-center gap-3 text-[10px] font-bold tracking-[2px] text-cyan-300">
-              <span>EXPLORE OUR COLLECTION</span>
-              <MoveUpRight size={16} />
-            </div>
-          </motion.div>
+          <p className="max-w-md text-sm leading-7 text-gray-600">
+            Pick a feeling, follow your curiosity, and let us take care of the
+            details. Your next favourite place is waiting.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[260px_260px_250px]">
-          {destinations.map((place, index) => (
-            <DestinationCard
-              key={place.name}
-              place={place}
-              index={index}
-            />
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {destinations.map((destination, index) => (
+            <button
+              key={destination.name}
+              type="button"
+              onClick={() => exploreDestination(destination.name)}
+              className={`group relative h-64 overflow-hidden rounded-2xl bg-emerald-100 text-left shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl sm:h-80 ${
+                index === 1 || index === 4 ? "lg:translate-y-5" : ""
+              }`}
+            >
+              <img
+                src={destination.image}
+                alt={destination.name}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/10 to-transparent" />
+
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3 text-white sm:p-5">
+                <div>
+                  <p className="mb-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-white/80 sm:text-[10px] sm:tracking-[0.16em]">
+                    {destination.subtitle}
+                  </p>
+                  <h3 className="font-serif text-xl font-medium sm:text-2xl">
+                    {destination.name}
+                  </h3>
+                </div>
+
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/70 text-sm transition duration-300 group-hover:border-white group-hover:bg-white group-hover:text-emerald-950 sm:h-10 sm:w-10">
+                  ↗
+                </span>
+              </div>
+
+              <span className="absolute inset-x-0 bottom-0 translate-y-full bg-white/95 p-4 text-xs leading-5 text-gray-700 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                {destination.description}
+              </span>
+            </button>
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
-          <div>
-            <p className="font-['Manrope'] text-xl font-bold tracking-tight">
-              Your next story starts somewhere.
-            </p>
-            <p className="mt-2 text-xs text-slate-400">
-              Tell us where you dream of going.
-            </p>
-          </div>
-
+        <div className="mt-12 text-center">
           <a
-            href="https://wa.me/919477110367?text=Hello%20TravelNext!%20I%20would%20like%20to%20plan%20a%20trip."
-            target="_blank"
-            rel="noreferrer"
-            className="group flex w-fit items-center gap-5 rounded-full border border-cyan-300/50 px-6 py-4 text-[10px] font-bold tracking-[2px] text-cyan-300 transition hover:bg-cyan-300 hover:text-[#071629]"
+            href="#packages"
+            className="inline-flex items-center gap-3 rounded-full bg-emerald-900 px-7 py-4 text-sm font-bold text-white transition hover:-translate-y-1 hover:bg-emerald-800"
           >
-            PLAN YOUR JOURNEY
-            <ArrowUpRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
+            Explore Tour Packages
+            <span>↗</span>
           </a>
         </div>
       </div>
